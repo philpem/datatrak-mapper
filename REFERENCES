@@ -1,0 +1,147 @@
+
+Natural Earth texture pack:
+
+http://www.shadedrelief.com/natural3/pages/textures.html
+	http://naturalearth.springercarto.com/ne3_data/16200/textures/2_no_clouds_16k.jpg
+	http://naturalearth.springercarto.com/ne3_data/projection.zip
+
+https://gis.stackexchange.com/questions/184275/convert-longitude-latitude-to-pixels-on-the-map
+
+There is no transformation between coordinates but to/from pixel positions, like this: we assume px, py is a pixel position in your map, while geox and geoy are real world coordinates. We also have xOff, yOff taken from the tfw, with -180, 90 plus xsize and ysize, with 0.02222222222222, -0.02222222222222
+
+pix2coord(px,py)
+    geox = xOff + (px * xsize)
+    geoy = yOff + (py * ysize)
+
+coord2pix(geox, geoy)
+    px = (geox - xOff) / xsize 
+    py = (geoy - yOff) / ysize
+
+
+
+Ordnance Survey coordinate conversion:
+
+https://johnnewcombe.net/2015/01/11/converting-latitude-and-longitude-to-british-national-grid-in-c/
+http://jhnet.co.uk/articles/os_coord
+https://github.com/mossblaser/os_coord.git
+http://www.movable-type.co.uk/scripts/latlong-os-gridref.html
+http://proj4.org/
+
+
+$(document).ready(function() {
+            // show source code
+            $.get('//cdn.rawgit.com/chrisveness/geodesy/3113f49/osgridref.js', function(data) {
+                var src = data.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                $('#source-code-osgridref').html(src);
+                prettyPrint();
+            }, 'text');
+            $.get('//cdn.rawgit.com/chrisveness/geodesy/3113f49/latlon-ellipsoidal.js', function(data) {
+                var src = data.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                $('#source-code-latlon-ellipsoidal').html(src);
+                prettyPrint();
+            }, 'text');
+
+            // wgs84 point updated
+            $('#latWGS84,#lonWGS84').change( function() {
+                try {
+                    var lat = Dms.parseDMS($('#latWGS84').val());
+                    var lon = Dms.parseDMS($('#lonWGS84').val());
+
+                    var wgs84 = LatLon(lat, lon, LatLon.datum.WGS84);
+                    var osgb = wgs84.convertDatum(LatLon.datum.OSGB36);
+                    var gridref = OsGridRef.latLonToOsGrid(osgb);
+
+                    $('#latOSGB36').val(Dms.toLat(osgb.lat, degFmt, fixDig));
+                    $('#lonOSGB36').val(Dms.toLon(osgb.lon, degFmt, fixDig));
+                    $('#grid-ref').val(gridref.toString());
+                    $('#east-north').val(gridref.easting+','+gridref.northing);
+                } catch (e) {
+                    $('#latOSGB36').val(e.message);
+                    $('#latOSGB36').val(e.message);
+                    $('#grid-ref').val(e.message);
+                    $('#east-north').val(e.message);
+                }
+            });
+
+            // osgb36 point updated
+            $('#latOSGB36,#lonOSGB36').change( function() {
+                try {
+                    var lat = Dms.parseDMS($('#latOSGB36').val());
+                    var lon = Dms.parseDMS($('#lonOSGB36').val());
+
+                    var osgb = LatLon(lat, lon, LatLon.datum.OSGB36);
+                    var wgs84 = osgb.convertDatum(LatLon.datum.WGS84);
+                    var gridref = OsGridRef.latLonToOsGrid(osgb);
+
+                    $('#latWGS84').val(Dms.toLat(wgs84.lat,degFmt, fixDig));
+                    $('#lonWGS84').val(Dms.toLon(wgs84.lon,degFmt, fixDig));
+                    $('#grid-ref').val(gridref.toString());
+                    $('#east-north').val(gridref.easting+','+gridref.northing);
+                } catch (e) {
+                    $('#latWGS84').val(e.message);
+                    $('#lonWGS84').val(e.message);
+                    $('#grid-ref').val(e.message);
+                    $('#east-north').val(e.message);
+                }
+            });
+
+            // os grid ref updated
+            $('#grid-ref').change( function() {
+                try {
+                    var gridref = OsGridRef.parse($('#grid-ref').val());
+
+                    var pWGS = OsGridRef.osGridToLatLon(gridref);
+                    var pOSGB = pWGS.convertDatum(LatLon.datum.OSGB36);
+
+                    $('#latWGS84').val(Dms.toLat(pWGS.lat,degFmt, fixDig));
+                    $('#lonWGS84').val(Dms.toLon(pWGS.lon,degFmt, fixDig));
+                    $('#latOSGB36').val(Dms.toLat(pOSGB.lat,degFmt, fixDig));
+                    $('#lonOSGB36').val(Dms.toLon(pOSGB.lon,degFmt, fixDig));
+                    $('#east-north').val(gridref.toString(0)); // toString(0) returns numeric form
+                } catch (e) {
+                    $('#latWGS84').val(e.message);
+                    $('#lonWGS84').val(e.message);
+                    $('#latOSGB36').val(e.message);
+                    $('#lonOSGB36').val(e.message);
+                    $('#east-north').val(e.message);
+                }
+            });
+
+            // numeric ref updated
+            $('#east-north').change( function() {
+                try {
+                    var gridref = OsGridRef.parse($('#east-north').val());
+
+                    var pWGS = OsGridRef.osGridToLatLon(gridref);
+                    var pOSGB = pWGS.convertDatum(LatLon.datum.OSGB36);
+
+                    $('#latWGS84').val(Dms.toLat(pWGS.lat,degFmt, fixDig));
+                    $('#lonWGS84').val(Dms.toLon(pWGS.lon,degFmt, fixDig));
+                    $('#latOSGB36').val(Dms.toLat(pOSGB.lat,degFmt, fixDig));
+                    $('#lonOSGB36').val(Dms.toLon(pOSGB.lon,degFmt, fixDig));
+                    $('#grid-ref').val(gridref.toString(10)); // 10-digit = metres
+                } catch (e) {
+                    $('#latWGS84').val(e.message);
+                    $('#lonWGS84').val(e.message);
+                    $('#latOSGB36').val(e.message);
+                    $('#lonOSGB36').val(e.message);
+                    $('#grid-ref').val(e.message);
+                }
+            });
+
+                // has user made d/dms display preference?
+            var degFmt = $.cookie('latlon-degree-format') || 'dms';
+            var fixDig = degFmt=='dms' ? 2 : 6; // decimal digits
+            // show current preference
+            $('#deg-format-'+degFmt).prop('checked', true);
+            // listener for display of bearings to user's preference
+            $('input[name="deg-format"]').change(function() {
+                // record preference in cookie
+                $.cookie('latlon-degree-format', degFmt = $(this).val());
+                // trigger recalculation with new format
+                fixDig = degFmt=='dms' ? 2 : 6;
+                $('#grid-ref').trigger('change');
+            });
+
+            $('#grid-ref').trigger('change'); // initial calculation
+
