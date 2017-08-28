@@ -177,25 +177,8 @@ class Transmitter
 };
 
 
-
-int main(int argc, char **argv)
+void initTransmitters(map<int, Transmitter*> &txes)
 {
-
-	// read the worldfile
-
-	CWorldfile wf(TFW_FILE);
-
-	long pix, piy;
-
-	wf.coord2pix(52.393035, 5.106178, pix, piy);
-
-
-	// load map file
-	CImg<unsigned char> img(MAP_FILE);
-
-
-	// define transmitters
-	map<int, Transmitter*> txes;
 	txes[1]		= new Transmitter("Huntingdon",					52.248652,  -0.34541632);
 	txes[2]		= new Transmitter("Selsey",						50.762753,  -0.79222675);
 	txes[3]		= new Transmitter("Kent",						51.005200,   0.88739097);
@@ -218,6 +201,7 @@ int main(int argc, char **argv)
 	txes[15]	= new Transmitter("Stonehaven",					56.839071,  -2.3556843);
 
 
+	// define active patterns (and Slot 1's role as the "root")
 	txes[1]->addSlot(NULL, 0, 1);
 	txes[2]->addSlot(txes[1], 1, 2);
 	txes[3]->addSlot(txes[1], 1, 3);
@@ -239,6 +223,21 @@ int main(int argc, char **argv)
 	txes[12]->addSlot(txes[10], 10, 12);
 	txes[14]->addSlot(txes[4], 4, 14);
 	txes[15]->addSlot(txes[10], 10, 15);
+}
+
+
+int main(int argc, char **argv)
+{
+
+	// read the worldfile
+	CWorldfile wf(TFW_FILE);
+
+	// load map file
+	CImg<unsigned char> img(MAP_FILE);
+
+	// define transmitters
+	map<int, Transmitter*> txes;
+	initTransmitters(txes);
 
 
 	// marker colour
