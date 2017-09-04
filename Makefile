@@ -7,7 +7,7 @@ LDFLAGS+=-L/usr/X11R6/lib -lm -lpthread -lX11
 
 all:	mapv
 
-mapv:	mapv.o
+mapv:	mapv.o Transmitters.o
 	g++ $(CFLAGS) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
 clean:
