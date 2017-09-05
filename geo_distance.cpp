@@ -21,13 +21,13 @@ using namespace std;
 
 static const double earth_radius_km = 6371.0;
 
-double deg2rad(double deg)
+double deg2rad(const double deg)
 {
     return (deg * M_PI / 180.0);
 }
 
-double haversine_distance(double latitude1, double longitude1, double latitude2,
-                          double longitude2)
+double haversine_distance(const double latitude1, const double longitude1,
+                          const double latitude2, const double longitude2)
 {
     double lat1 = deg2rad(latitude1);
     double lon1 = deg2rad(longitude1);
@@ -45,8 +45,8 @@ double haversine_distance(double latitude1, double longitude1, double latitude2,
     return earth_radius_km * d_sigma;
 }
 
-double vincenty_distance(double latitude1, double longitude1, double latitude2,
-                         double longitude2)
+double vincenty_distance(const double latitude1, const double longitude1,
+                         const double latitude2, const double longitude2)
 {
     double lat1 = deg2rad(latitude1);
     double lon1 = deg2rad(longitude1);
