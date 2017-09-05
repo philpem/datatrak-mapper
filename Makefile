@@ -5,9 +5,12 @@ LDFLAGS+=-L/usr/X11R6/lib -lm -lpthread -lX11
 .PHONY:		all clean
 
 
-all:	mapv
+all:	mapv lopmap
 
 mapv:	mapv.o Transmitters.o
+	g++ $(CFLAGS) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
+
+lopmap:	lopmap.o Transmitters.o geo_distance.o
 	g++ $(CFLAGS) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
 clean:
