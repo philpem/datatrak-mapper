@@ -14,6 +14,6 @@ lopmap:	lopmap.o Transmitters.o geo_distance.o
 	g++ $(CFLAGS) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
 clean:
-	-rm -rf $(TGT) $(OBJ)
+	-rm -rf mapv lopmap mapv.o lopmap.o Transmitters.o geo_distance.o
 
 
