@@ -11,19 +11,19 @@ void initTransmitters(map<int, Transmitter*> &txes)
 //	txes[4]		= new Transmitter("Roves Farm",					51.594303,  -1.6948185);
 	txes[4]		= new Transmitter("Stratford-upon-Avon",		52.147024,  -1.5071244, TEXTALIGN_RIGHT);		// alternate 4
 	txes[5]		= new Transmitter("Lowestoft",					52.581448,   1.5563448, TEXTALIGN_RIGHT);
-	txes[6]		= new Transmitter("Asserby",					53.273217,   0.23136825);	// slot A
-	txes[7]		= new Transmitter("Southport",					53.620775,  -2.9806128);	// Slot A
-	txes[8]		= new Transmitter("Cowbridge",					51.442644,  -3.4975458);
+	txes[6]		= new Transmitter("Asserby",					53.273217,   0.23136825);
+	txes[7]		= new Transmitter("Southport",					53.620775,  -2.9806128, TEXTALIGN_RIGHT);
+	txes[8]		= new Transmitter("Cowbridge",					51.442644,  -3.4975458, TEXTALIGN_RIGHT);
 //	txes[9]		= new Transmitter("Swindon",					 10,  51.650225,  -1.6733554);
-	txes[10]	= new Transmitter("Cumbria",					54.862266,  -3.1868761);
-	txes[11]	= new Transmitter("Greenock",					55.935688,  -4.8527571);
+	txes[10]	= new Transmitter("Cumbria",					54.862266,  -3.1868761, TEXTALIGN_RIGHT);
+	txes[11]	= new Transmitter("Greenock",					55.935688,  -4.8527571, TEXTALIGN_RIGHT);
 	txes[12]	= new Transmitter("Alnwick",					55.354577,  -1.7026607);
 
 	// Filey/Muston, 13 and 19. 13 is Southport-B
 	// Don't know the master station so it isn't listed
 	// Need master information (Active Patterns) from #3675RX.
 
-	txes[14]	= new Transmitter("Kingsbridge",				50.221003,  -3.7279835);
+	txes[14]	= new Transmitter("Kingsbridge",				50.221003,  -3.7279835, TEXTALIGN_RIGHT);
 	txes[15]	= new Transmitter("Stonehaven",					56.839071,  -2.3556843);
 
 
