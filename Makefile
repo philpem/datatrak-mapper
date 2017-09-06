@@ -1,6 +1,6 @@
 CXX=g++
-CXXFLAGS+=-Wall -Wextra -Wno-unused-parameter -I./CImg-2.0.3_pre080217 -g -ggdb -Dcimg_use_png
-LDFLAGS+=-L/usr/X11R6/lib -lm -lpthread -lX11 -lpng -lz
+CXXFLAGS+=-Wall -Wextra -Wno-unused-parameter -I./CImg-2.0.3_pre080217 -g -ggdb -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_jpeg
+LDFLAGS+=-L/usr/X11R6/lib -lm -lpthread -lX11 -lpng -lz -ltiff -ljpeg
 
 .PHONY:		all clean
 
