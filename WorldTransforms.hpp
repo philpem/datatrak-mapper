@@ -52,7 +52,7 @@ class CWorldfile {
 		 * @param[out]	lon		Longitude (geo-X) in degrees (Easting).
 		 * 						East is positive, West is negative.
 		 */
-		void pix2coord(const long px, const long py, double &lon, double &lat)
+		void pix2coord(const long px, const long py, double &lon, double &lat) const
 		{
 			lon = this->xOrigin + (py * this->xRot) + (px * this->xPixSz);
 			lat = this->yOrigin + (px * this->yRot) + (py * this->yPixSz);
@@ -68,7 +68,7 @@ class CWorldfile {
 		 * @param[out]	px		Pixel X location.
 		 * @param[out]	py		Pixel Y location.
 		 */
-		void coord2pix(const double lat, const double lon, long &px, long &py)
+		void coord2pix(const double lat, const double lon, long &px, long &py) const
 		{
 			px = round(((this->yPixSz * lon) - (this->xRot * lat) + (this->xRot * this->yOrigin) - (this->yPixSz * this->xOrigin)) / ((this->xPixSz * this->yPixSz) - (this->yRot * this->xRot)));
 			py = round(((this->xPixSz * lat) + (-this->yRot * lon) + (this->yRot * this->xOrigin) - (this->xPixSz * this->yOrigin)) / ((this->xPixSz * this->yPixSz) - (this->yRot * this->xRot)));
