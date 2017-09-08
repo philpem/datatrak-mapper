@@ -54,6 +54,9 @@ const double FREQ = 122.0e3 / 10.;			///< Transmitter frequency. Divided by ten 
 
 const double SPEED_OF_LIGHT = 299792458;	///< Speed of light in metres per second.
 
+const int STATION_MARK_RADIUS = 2;			///< Radius of the white marks used to identify stations on the map.
+
+/// Colour palette.
 const unsigned char MARKERCOLOURS[][3] = {
 	{ 255, 255, 255 },
 	{ 255,   0,   0 },
@@ -196,7 +199,7 @@ int main(int argc, char **argv)
 		*/
 
 		// mark the station
-		img.draw_circle(me_x, me_y, 5, MARKERCOLOURS[0], 1);
+		img.draw_circle(me_x, me_y, STATION_MARK_RADIUS, MARKERCOLOURS[0], 1);
 
 		// put text on the transmitter
 
@@ -218,21 +221,16 @@ int main(int argc, char **argv)
 
 
 	// plot all the baselines and LOPs
-
-	// select the baseline to plot
-//	txa = txes[1];
-//	txb = txes[2];
-
 	plotLOP(img, wf, txes[1], txes[2], 0);
 	plotLOP(img, wf, txes[1], txes[3], 1);
 	plotLOP(img, wf, txes[1], txes[4], 2);
 	plotLOP(img, wf, txes[1], txes[5], 3);
 	plotLOP(img, wf, txes[1], txes[7], 4);
 
+	// TODO: this isn't all of the master/slave relationships.
+	// Should be looping over TXes and scanning their slots.
 
-//	basemap.normalize(0,255);
-//	basemap.display("LOPs");
 
+	// display the LOP-map
 	img.display("Datatrak transmitters with LOPs shown");
-
 }
