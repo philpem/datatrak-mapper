@@ -57,6 +57,7 @@ const double SPEED_OF_LIGHT = 299792458;	///< Speed of light in metres per secon
 const int STATION_MARK_RADIUS = 2;			///< Radius of the white marks used to identify stations on the map.
 
 /// Colour palette.
+const unsigned int NCOLOURS = 6;
 const unsigned char MARKERCOLOURS[][3] = {
 	{ 255, 255, 255 },
 	{ 255,   0,   0 },
@@ -219,17 +220,25 @@ int main(int argc, char **argv)
 		}
 	}
 
+	// Plot all the baselines and LOPs
+	unsigned int nCol = 0;
+	for (map<int, Transmitter*>::iterator it=txes.begin(); it!=txes.end(); ++it)
+	{
+		for (vector<Slot*>::iterator slit=it->second->slots.begin(); slit != it->second->slots.end(); ++slit)
+		{
+			unsigned int master, slave;
 
-	// plot all the baselines and LOPs
-	plotLOP(img, wf, txes[1], txes[2], 0);
-	plotLOP(img, wf, txes[1], txes[3], 1);
-	plotLOP(img, wf, txes[1], txes[4], 2);
-	plotLOP(img, wf, txes[1], txes[5], 3);
-	plotLOP(img, wf, txes[1], txes[7], 4);
+			master = (*slit)->masterSlot;
+			slave = (*slit)->slaveSlot;
 
-	// TODO: this isn't all of the master/slave relationships.
-	// Should be looping over TXes and scanning their slots.
+			if ((master == 0) || (slave == 0)) {
+				continue;
+			}
 
+			plotLOP(img, wf, (*slit)->master, it->second, nCol);
+			nCol = (nCol + 1) % NCOLOURS;
+		}
+	}
 
 	// display the LOP-map
 	img.display("Datatrak transmitters with LOPs shown");
