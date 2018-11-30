@@ -35,7 +35,7 @@ const long CROP_X1 = CROP_X0 + 780;		// Crop, X pixel coord, bottom-right corner
 const long CROP_Y1 = CROP_Y0 + 593;		// Crop, Y pixel coord, bottom-right corner
 
 
-const float TEXT_ALPHA = 0.5f;				///< Text transparency
+const float TEXT_ALPHA = 0.65f;				///< Text transparency
 const float LOP_ALPHA = 0.75f;				///< LOP transparency
 
 /**
@@ -57,9 +57,9 @@ const double SPEED_OF_LIGHT = 299792458;	///< Speed of light in metres per secon
 const int STATION_MARK_RADIUS = 2;			///< Radius of the white marks used to identify stations on the map.
 
 /// Colour palette.
-const unsigned int NCOLOURS = 6;
+const unsigned int NCOLOURS = 5;
 const unsigned char MARKERCOLOURS[][3] = {
-	{ 255, 255, 255 },
+//	{ 255, 255, 255 },
 	{ 255,   0,   0 },
 	{ 255, 255,   0 },
 	{   0, 255,   0 },
@@ -211,7 +211,8 @@ int main(int argc, char **argv)
 		*/
 
 		// mark the station
-		img.draw_circle(me_x, me_y, STATION_MARK_RADIUS, MARKERCOLOURS[0], 1);
+		img.draw_circle(me_x, me_y, STATION_MARK_RADIUS, BLACK, 1);
+		img.draw_circle(me_x, me_y, STATION_MARK_RADIUS/2, WHITE, 1);
 
 		// put text on the transmitter
 
