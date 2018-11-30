@@ -110,7 +110,18 @@ void plotLOP(CImg<unsigned char> &img, const CWorldfile &wf, const Transmitter *
 
 		// plot only if LOP phase is within +/- <RANGE> of zero
 		if ((phase_shift < LOP_RANGE) || (phase_shift > (360.0 - LOP_RANGE))) {
-			img.draw_point(x, y, MARKERCOLOURS[colour], LOP_ALPHA);
+			// Scale the alpha
+			float scaled_alpha;
+			if (phase_shift > 180) {
+				scaled_alpha = fabs(360.0 - phase_shift) / LOP_RANGE;
+			} else {
+				scaled_alpha = fabs(phase_shift) / LOP_RANGE;
+			}
+
+			// Flip so that the centre of the line is the darkest
+			scaled_alpha = (1.0-scaled_alpha) * LOP_ALPHA;
+
+			img.draw_point(x, y, MARKERCOLOURS[colour], scaled_alpha);
 			//img(x,y,2) = MARKERCOLOURS[colour][2];// * (phase_shift * 255.0 / 360.0);
 		}
 	}
@@ -242,4 +253,6 @@ int main(int argc, char **argv)
 
 	// display the LOP-map
 	img.display("Datatrak transmitters with LOPs shown");
+
+	img.save("lopmap.png");
 }

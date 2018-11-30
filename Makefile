@@ -1,5 +1,8 @@
+#CIMG=./CImg-2.0.3_pre080217
+CIMG=./CImg
+
 CXX=g++
-CXXFLAGS+=-Wall -Wextra -Wno-unused-parameter -I./CImg-2.0.3_pre080217 -g -ggdb -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_jpeg
+CXXFLAGS+=-Wall -Wextra -Wno-unused-parameter -I${CIMG} -g -ggdb -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_jpeg
 LDFLAGS+=-L/usr/X11R6/lib -lm -lpthread -lX11 -lpng -lz -ltiff -ljpeg
 
 .PHONY:		all clean
