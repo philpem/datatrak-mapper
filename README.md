@@ -25,8 +25,8 @@ Precompiling the CImg header may speed up compilation - implementing this is lef
 ## Running the tools
 
   - Download the map data:
-    * MapV requires [[http://www.shadedrelief.com/natural3/pages/textures.html|Natural Earth 3 "no clouds 16k"]] and [[http://shadedrelief.com/natural3/ne3_data/projection.zip|Natural Earth 3 projection data]]. This should be extracted into the `natural_earth_3` directory as `2_no_clouds_16k.jpg` and `2_no_clouds_16k.tfw` respectively.
-    * LOPMap requires [[https://www.naturalearthdata.com/downloads/10m-raster-data/10m-cross-blend-hypso/|Natural Earth 1:10m Cross Blended Hypso with Shaded Relief and Water]] (the ZIP file includes the ESRI Worldfile projection data). This should be extracted into the `HYP_HR_SR_W` directory.
+    * MapV requires [Natural Earth 3 "no clouds 16k"](http://www.shadedrelief.com/natural3/pages/textures.html) and [Natural Earth 3 projection data](http://shadedrelief.com/natural3/ne3_data/projection.zip). This should be extracted into the `natural_earth_3` directory as `2_no_clouds_16k.jpg` and `2_no_clouds_16k.tfw` respectively.
+    * LOPMap requires [Natural Earth 1:10m Cross Blended Hypso with Shaded Relief and Water](https://www.naturalearthdata.com/downloads/10m-raster-data/10m-cross-blend-hypso/) (the ZIP file includes the ESRI Worldfile projection data). This should be extracted into the `HYP_HR_SR_W` directory.
   - Build the tools (see above)
   - Run `lopmap` or `mapv` to generate the maps.
 
