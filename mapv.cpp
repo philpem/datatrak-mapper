@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-#include "CImg.h"
+#include "CImg/CImg.h"
 
 #include "WorldTransforms.hpp"
 #include "Transmitters.hpp"
@@ -133,5 +133,6 @@ int main(int argc, char **argv)
 	// crop the map image appropriately (default is to cover the UK only)
 	img.crop(CROP_X0, CROP_Y0, CROP_X1, CROP_Y1);
 	img.display("Map");
+	img.save("map_txrefs.png");
 
 }
