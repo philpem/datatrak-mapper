@@ -1,3 +1,6 @@
 [submodule "CImg"]
 	path = CImg
 	url = https://github.com/dtschump/CImg.git
+[submodule "os_coord"]
+	path = os_coord
+	url = https://github.com/mossblaser/os_coord
