@@ -7,7 +7,7 @@
 #include <vector>
 #include <cmath>
 
-#include "CImg.h"
+#include "CImg/CImg.h"
 
 #include "geo_distance.hpp"
 
