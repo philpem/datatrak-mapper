@@ -36,7 +36,7 @@ const long CROP_Y1 = CROP_Y0 + 593;		// Crop, Y pixel coord, bottom-right corner
 
 
 const float TEXT_ALPHA = 0.65f;				///< Text transparency
-const float LOP_ALPHA = 0.75f;				///< LOP transparency
+const float LOP_ALPHA = 0.95f;				///< LOP transparency
 
 /**
  * Blanking distance in metres.
