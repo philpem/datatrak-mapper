@@ -1,0 +1,9 @@
+*.o
+*~
+.*.sw?
+HYP_HR_SR_W
+HYP_HR_SR_W.zip
+natural_earth_3
+lopmap.png
+lopmap
+mapv
